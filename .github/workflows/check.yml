@@ -17,7 +17,7 @@ jobs:
           java-version: '17'
           java-package: 'jdk'
       - name: Check update with
-        run: ./java -jar build-cache/HMCL-Snapshot-Update-Checker.jar
+        run: java -jar build-cache/HMCL-Snapshot-Update-Checker.jar
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
