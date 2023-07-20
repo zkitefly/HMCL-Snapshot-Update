@@ -22,6 +22,8 @@ jobs:
         run: ./gradlew build --stacktrace -Dorg.gradle.parallel=true
       - name: Check update with HMCL Snapshot Update Checker
         run: java -jar build/libs/HMCL-Snapshot-Update-1.0-SNAPSHOT-all.jar
+        env:
+          HMCL_GITHUB_TOKEN: ${{ secrets.HMCL_GITHUB_TOKEN }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
