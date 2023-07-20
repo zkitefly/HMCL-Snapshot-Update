@@ -30,3 +30,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add -A
           git commit -m "[BOT] Update version json."
+      - name: Push commits
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
