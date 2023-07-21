@@ -35,4 +35,6 @@ jobs:
             echo "No Changes"
           else
             git commit -m "[BOT] Update version json."
-          git push
+            git push
+          fi
+          
