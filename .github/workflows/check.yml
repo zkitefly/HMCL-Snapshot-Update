@@ -32,7 +32,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add -A
           if git diff-index --quiet HEAD; then
-            eho 'No Changes'
+            echo "No Changes"
           else
             git commit -m "[BOT] Update version json."
           git push
