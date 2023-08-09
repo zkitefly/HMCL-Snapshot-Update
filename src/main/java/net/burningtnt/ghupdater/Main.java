@@ -69,6 +69,7 @@ public final class Main {
                     }
 
                     Path outputJar = outputRoot.resolve(jarRaw.name);
+                    Path outputJarDirect = outputRoot.resolve("HMCL-dev.jar");
                     Path outputJson = outputRoot.resolve("snapshot.json");
 
                     if (Files.exists(outputJson)) {
@@ -86,6 +87,7 @@ public final class Main {
                     Files.writeString(outputJson, GSON.toJson(outputJsonObject));
 
                     Files.write(outputJar, jarRaw.data);
+                    Files.write(outputJarDirect, jarRaw.data);
                 }
         ).run();
     }
