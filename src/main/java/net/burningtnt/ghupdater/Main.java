@@ -33,18 +33,18 @@ public final class Main {
                         .build(),
                 gitHubArtifacts -> gitHubArtifacts.get(0),
                 data -> {
-                    ArtifactFile jarRaw = null;
-                    ArtifactFile jarSha1 = null;
+                    ArtifactFile exeRaw = null;
+                    ArtifactFile exeSha1 = null;
 
                     try (ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(data))) {
                         ZipEntry zipEntry = zipInputStream.getNextEntry();
                         while (zipEntry != null) {
-                            if (zipEntry.getName().endsWith(".jar")) {
-                                jarRaw = new ArtifactFile(zipEntry.getName().substring(zipEntry.getName().lastIndexOf('/') + 1), zipInputStream.readAllBytes());
+                            if (zipEntry.getName().endsWith(".exe")) {
+                                exeRaw = new ArtifactFile(zipEntry.getName().substring(zipEntry.getName().lastIndexOf('/') + 1), zipInputStream.readAllBytes());
                             }
 
-                            if (zipEntry.getName().endsWith(".jar.sha1")) {
-                                jarSha1 = new ArtifactFile(zipEntry.getName().substring(zipEntry.getName().lastIndexOf('/') + 1), zipInputStream.readAllBytes());
+                            if (zipEntry.getName().endsWith(".exe.sha1")) {
+                                exeSha1 = new ArtifactFile(zipEntry.getName().substring(zipEntry.getName().lastIndexOf('/') + 1), zipInputStream.readAllBytes());
                             }
 
                             zipEntry = zipInputStream.getNextEntry();
@@ -52,7 +52,7 @@ public final class Main {
                     }
                     data = null;
 
-                    if (jarRaw == null || jarSha1 == null) {
+                    if (exeRaw == null || exeSha1 == null) {
                         throw new IOException("Invalid artifact.");
                     }
 
@@ -68,26 +68,26 @@ public final class Main {
                         Files.createDirectory(outputRoot);
                     }
 
-                    Path outputJar = outputRoot.resolve(jarRaw.name);
-                    Path outputJarDirect = outputRoot.resolve("HMCL-dev.jar");
+                    Path outputJar = outputRoot.resolve(exeRaw.name);
+                    Path outputJarDirect = outputRoot.resolve("HMCL-dev.exe");
                     Path outputJson = outputRoot.resolve("snapshot.json");
 
                     if (Files.exists(outputJson)) {
                         JsonObject inputJsonObject = GSON.fromJson(Files.readString(outputJson), JsonObject.class);
-                        if (inputJsonObject.get("jarsha1").getAsJsonPrimitive().getAsString().equals(new String(jarSha1.data, 0, 40))) {
+                        if (inputJsonObject.get("jarsha1").getAsJsonPrimitive().getAsString().equals(new String(exeSha1.data, 0, 40))) {
                             return;
                         }
                     }
 
                     JsonObject outputJsonObject = new JsonObject();
-                    outputJsonObject.add("jar", new JsonPrimitive(String.format("https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/%s", jarRaw.name)));
-                    outputJsonObject.add("jarsha1", new JsonPrimitive(new String(jarSha1.data, 0, 40)));
-                    outputJsonObject.add("version", new JsonPrimitive(jarRaw.name.substring("HMCL-".length(), jarRaw.name.length() - ".jar".length())));
+                    outputJsonObject.add("jar", new JsonPrimitive(String.format("https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/%s", exeRaw.name)));
+                    outputJsonObject.add("jarsha1", new JsonPrimitive(new String(exeSha1.data, 0, 40)));
+                    outputJsonObject.add("version", new JsonPrimitive(exeRaw.name.substring("HMCL-".length(), exeRaw.name.length() - ".exe".length())));
                     outputJsonObject.add("universal", new JsonPrimitive("https://www.mcbbs.net/forum.php?mod=viewthread&tid=142335"));
                     Files.writeString(outputJson, GSON.toJson(outputJsonObject));
 
-                    Files.write(outputJar, jarRaw.data);
-                    Files.write(outputJarDirect, jarRaw.data);
+                    Files.write(outputJar, exeRaw.data);
+                    Files.write(outputJarDirect, exeRaw.data);
                 }
         ).run();
     }
