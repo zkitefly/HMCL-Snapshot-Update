@@ -80,7 +80,7 @@ public final class Main {
                     }
 
                     JsonObject outputJsonObject = new JsonObject();
-                    outputJsonObject.add("jar", new JsonPrimitive(String.format("https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/%s", exeRaw.name)));
+                    outputJsonObject.add("jar", new JsonPrimitive(String.format("https://zkitefly.github.io/HMCL-Snapshot-Update/datas/%s", exeRaw.name)));
                     outputJsonObject.add("jarsha1", new JsonPrimitive(new String(exeSha1.data, 0, 40)));
                     outputJsonObject.add("version", new JsonPrimitive(exeRaw.name.substring("HMCL-".length(), exeRaw.name.length() - ".exe".length())));
                     outputJsonObject.add("universal", new JsonPrimitive("https://www.mcbbs.net/forum.php?mod=viewthread&tid=142335"));
