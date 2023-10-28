@@ -117,7 +117,7 @@
 	</footer>
 
 	<script>
-		fetch("datas/snapshot.json", {
+		fetch("https://ghp.zkitefly.eu.org/https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/snapshot.json", {
 			cache: "no-cache",
 			mode: "cors"
 		})
@@ -127,7 +127,7 @@
 				document.getElementById("versionInfoVersion").textContent = versionInfo.version;
 				document.getElementById("versionInfoUniversal").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
-				document.getElementById("versionInfoDownloadBtn").setAttribute("href", versionInfo.jar);
+				document.getElementById("versionInfoDownloadBtn").setAttribute("href", versionInfo.jar.replace("https://github.com", "https://ghp.zkitefly.eu.org/https://github.com"));
 				document.getElementById("versionInfo").classList.remove("d-none");
 			})
 			.catch(error => {
