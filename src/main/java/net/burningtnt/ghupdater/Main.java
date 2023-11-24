@@ -71,6 +71,7 @@ public final class Main {
                     Path outputJar = outputRoot.resolve(exeRaw.name);
                     Path outputJarDirect = outputRoot.resolve("HMCL-dev.exe");
                     Path outputJson = outputRoot.resolve("snapshot.json");
+                    Path outputJson2 = outputRoot.resolve("wrapped-snapshot.json");
 
                     if (Files.exists(outputJson)) {
                         JsonObject inputJsonObject = GSON.fromJson(Files.readString(outputJson), JsonObject.class);
@@ -85,6 +86,9 @@ public final class Main {
                     outputJsonObject.add("version", new JsonPrimitive(exeRaw.name.substring("HMCL-".length(), exeRaw.name.length() - ".exe".length())));
                     outputJsonObject.add("universal", new JsonPrimitive("https://www.mcbbs.net/forum.php?mod=viewthread&tid=142335"));
                     Files.writeString(outputJson, GSON.toJson(outputJsonObject));
+
+                    outputJsonObject.add("jar", new JsonPrimitive(String.format("https://gp.zkitefly.eu.org/https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/%s", exeRaw.name)));
+                    Files.writeString(outputJson2, GSON.toJson(outputJsonObject));
 
                     Files.write(outputJar, exeRaw.data);
                     Files.write(outputJarDirect, exeRaw.data);
