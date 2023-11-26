@@ -26,6 +26,7 @@ jobs:
         run: java -jar build/libs/HMCL-Snapshot-Update-1.0-SNAPSHOT-all.jar
         env:
           HMCL_GITHUB_TOKEN: ${{ secrets.HMCL_GITHUB_TOKEN }}
+          HMCL_GITHUB_PROXY: ${{ secrets.HMCL_GITHUB_PROXY }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
