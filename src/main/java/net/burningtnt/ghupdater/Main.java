@@ -25,9 +25,9 @@ public final class Main {
     public static void main(String[] args) throws IOException {
         new GithubUpdater(
                 Profile.newBuilder()
-                        .setOwner("huanghongxun")
+                        .setOwner("burningtnt")
                         .setRepository("HMCL")
-                        .setBranch("javafx")
+                        .setBranch("prs")
                         .setWorkflowID("gradle.yml")
                         .setToken(System.getenv("HMCL_GITHUB_TOKEN"))
                         .build(),
