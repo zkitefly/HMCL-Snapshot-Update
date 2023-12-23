@@ -23,7 +23,7 @@ public final class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        String downloadLink ="https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/%s";
+        String downloadLink = "https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/%s";
         new GithubUpdater(
                 Profile.newBuilder()
                         .setOwner("huanghongxun")
