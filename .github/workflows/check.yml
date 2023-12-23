@@ -3,7 +3,7 @@ name: Check Update
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 */3 * * *'
+    - cron: '* * * * *'
 
 permissions: write-all
 
