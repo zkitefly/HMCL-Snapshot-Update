@@ -81,13 +81,13 @@ public final class Main {
                     }
 
                     JsonObject outputJsonObject = new JsonObject();
-                    outputJsonObject.add("jar", new JsonPrimitive(String.format("https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/%s", exeRaw.name)));
+                    outputJsonObject.add("jar", new JsonPrimitive(String.format("https://github.com/zkitefly/HMCL-Snapshot-Update/raw/master/datas/%s", exeRaw.name)));
                     outputJsonObject.add("jarsha1", new JsonPrimitive(new String(exeSha1.data, 0, 40)));
                     outputJsonObject.add("version", new JsonPrimitive(exeRaw.name.substring("HMCL-".length(), exeRaw.name.length() - ".exe".length())));
                     outputJsonObject.add("universal", new JsonPrimitive("https://www.mcbbs.net/forum.php?mod=viewthread&tid=142335"));
                     Files.writeString(outputJson, GSON.toJson(outputJsonObject));
 
-                    outputJsonObject.add("jar", new JsonPrimitive(System.getenv("HMCL_GITHUB_PROXY") + String.format("https://github.com/burningtnt/HMCL-Snapshot-Update/raw/master/datas/%s", exeRaw.name)));
+                    outputJsonObject.add("jar", new JsonPrimitive(System.getenv("HMCL_GITHUB_PROXY") + String.format("https://github.com/zkitefly/HMCL-Snapshot-Update/raw/master/datas/%s", exeRaw.name)));
                     Files.writeString(outputJson2, GSON.toJson(outputJsonObject));
 
                     Files.write(outputJar, exeRaw.data);
