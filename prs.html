@@ -107,7 +107,7 @@
 				</table>
 				<a id="versionInfoDownloadBtn" href="$downloadUrl" class="btn btn-outline-primary">下载</a>
 				<a id="versionInfoChangeLogBtn" href="$githubUrl" class="btn btn-outline-primary">GitHub Commit</a>
-				<a id="prLinkBtn" href="$githubUrl" class="btn btn-outline-primary">Collection of PR #2608</a>
+				<a id="prLinkBtn" href="$githubUrl" class="btn btn-outline-primary">Collection of PR</a>
 			</div>
 		</div>
 
@@ -134,7 +134,7 @@
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
 				document.getElementById("versionInfoDownloadBtn").setAttribute("href", versionInfo.jar);
 				document.getElementById("versionInfoChangeLogBtn").setAttribute("href", "https://github.com/burningtnt/HMCL/commit/" + versionInfo.version.split("-").pop());
-				document.getElementById("prLinkBtn").setAttribute("href", "https://github.com/huanghongxun/HMCL/pull/2608");
+				document.getElementById("prLinkBtn").setAttribute("href", "https://github.com/burningtnt/HMCL/commits/prs");
 				document.getElementById("versionInfo").classList.remove("d-none");
 			})
 			.catch(error => {
