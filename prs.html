@@ -122,7 +122,7 @@
 	</footer>
 
 	<script>
-		fetch("https://cdn.crashmc.com/https:/raw.githubusercontent.com/burningtnt/HMCL-Snapshot-Update/prs/datas/wrapped-snapshot.json", {
+		fetch("https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/generated/330f9bc7/54dea917.json", {
 			cache: "no-cache",
 			mode: "cors"
 		})
@@ -132,7 +132,9 @@
 				document.getElementById("versionInfoVersion").textContent = versionInfo.version;
 				document.getElementById("versionInfoUniversal").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
-				document.getElementById("versionInfoDownloadBtn").setAttribute("href", versionInfo.jar);
+				document.getElementById("versionInfoDownloadBtn").setAttribute("href", 
+					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v2/", 
+					"https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page + CDN Proxy, Thanks to crashmc.com!
 				document.getElementById("versionInfoChangeLogBtn").setAttribute("href", "https://github.com/burningtnt/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("prLinkBtn").setAttribute("href", "https://github.com/burningtnt/HMCL/commits/prs");
 				document.getElementById("versionInfo").classList.remove("d-none");
