@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '45 */3 * * *'
+  push:
 
 permissions: write-all
 
