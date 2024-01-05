@@ -16,17 +16,17 @@ checkstyle {
     sourceSets = mutableSetOf()
 }
 
-tasks.build {
-    dependsOn(tasks.checkstyleMain {
+tasks.getByName("build") {
+    dependsOn(tasks.getByName("checkstyleMain") {
         group = "build"
     })
-    dependsOn(tasks.checkstyleTest {
+    dependsOn(tasks.getByName("checkstyleTest") {
         group = "build"
     })
-    dependsOn(tasks.shadowJar {
+    dependsOn(tasks.getByName<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
         manifest {
             attributes(
-                    "Main-Class" to "net.burningtnt.hmclfetcherx    .Main"
+                    "Main-Class" to "net.burningtnt.hmclfetcherx.Main"
             )
         }
     })
