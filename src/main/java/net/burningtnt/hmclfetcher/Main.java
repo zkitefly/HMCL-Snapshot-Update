@@ -32,7 +32,7 @@ public final class Main {
             new SourceBranch("burningtnt", "HMCL", "prs", "gradle.yml")
     };
 
-    private static final String OFFICIAL_DOWNLOAD_LINK = "https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/blob/v2/generated/";
+    private static final String OFFICIAL_DOWNLOAD_LINK = "https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v2/generated/";
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
