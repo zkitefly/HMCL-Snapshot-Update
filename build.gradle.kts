@@ -1,7 +1,7 @@
 plugins {
-    id("java")
-    id("checkstyle")
-    id("com.github.johnrengelman.shadow") version("7.0.0")
+    java
+    checkstyle
+    id("com.github.johnrengelman.shadow") version ("7.1.2")
 }
 
 group = "net.burningtnt"
@@ -16,17 +16,17 @@ checkstyle {
     sourceSets = mutableSetOf()
 }
 
-tasks.getByName("build") {
-    dependsOn(tasks.getByName("checkstyleMain") {
+tasks.build {
+    dependsOn(tasks.checkstyleMain {
         group = "build"
     })
-    dependsOn(tasks.getByName("checkstyleTest") {
+    dependsOn(tasks.checkstyleTest {
         group = "build"
     })
-    dependsOn(tasks.getByName<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+    dependsOn(tasks.shadowJar {
         manifest {
             attributes(
-                "Main-Class" to "net.burningtnt.ghupdater.Main"
+                    "Main-Class" to "net.burningtnt.hmclfetcherx    .Main"
             )
         }
     })
@@ -35,7 +35,7 @@ tasks.getByName("build") {
 dependencies {
     compileOnly("org.jetbrains:annotations:24.0.1")
     implementation("com.google.code.gson:gson:2.10.1")
-    implementation("org.apache.commons:commons-compress:1.23.0")
+    implementation("org.apache.commons:commons-compress:1.24.0")
 }
 
 tasks.getByName<Test>("test") {

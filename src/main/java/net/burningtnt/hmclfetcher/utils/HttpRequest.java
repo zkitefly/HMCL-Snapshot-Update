@@ -15,22 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package net.burningtnt.ghupdater.utils.io;
+package net.burningtnt.hmclfetcher.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-import net.burningtnt.ghupdater.utils.NetworkUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public abstract class HttpRequest {
     protected final Gson GSON = new Gson();
@@ -44,10 +41,6 @@ public abstract class HttpRequest {
         this.method = method;
     }
 
-    public HttpRequest accept(String contentType) {
-        return header("Accept", contentType);
-    }
-
     public HttpRequest authorization(String token) {
         return header("Authorization", token);
     }
@@ -59,12 +52,10 @@ public abstract class HttpRequest {
 
     public abstract byte[] getRawData() throws IOException;
 
+    public abstract InputStream getInputStream() throws IOException;
+
     public <T> T getJson(Class<T> typeOfT) throws IOException, JsonParseException {
         return GSON.fromJson(new InputStreamReader(new ByteArrayInputStream(getRawData())), typeOfT);
-    }
-
-    public <T> T getJson(Type type) throws IOException, JsonParseException {
-        return GSON.fromJson(new InputStreamReader(new ByteArrayInputStream(getRawData())), type);
     }
 
     public HttpURLConnection createConnection() throws IOException {
@@ -85,32 +76,10 @@ public abstract class HttpRequest {
         public byte[] getRawData() throws IOException {
             return createConnection().getInputStream().readAllBytes();
         }
-    }
-
-    public static final class HttpPostRequest extends HttpRequest {
-        public HttpPostRequest(String url) {
-            super(url, "POST");
-        }
-
-        public HttpPostRequest contentType(String contentType) {
-            headers.put("Content-Type", contentType);
-            return this;
-        }
-
-        public HttpPostRequest json(Object payload) throws JsonParseException {
-            return string(payload instanceof String ? (String) payload : GSON.toJson(payload), "application/json");
-        }
-
-        public HttpPostRequest string(String payload, String contentType) {
-            byte[] bytes = payload.getBytes(UTF_8);
-            header("Content-Length", "" + bytes.length);
-            contentType(contentType + "; charset=utf-8");
-            return this;
-        }
 
         @Override
-        public byte[] getRawData() throws IOException {
-            return createConnection().getInputStream().readAllBytes();
+        public InputStream getInputStream() throws IOException {
+            return createConnection().getInputStream();
         }
     }
 
@@ -120,14 +89,5 @@ public abstract class HttpRequest {
 
     public static HttpGetRequest GET(String url, Map<String, String> query) {
         return GET(NetworkUtils.withQuery(url, query));
-    }
-
-    public static HttpPostRequest POST(String url) {
-        return new HttpPostRequest(url);
-    }
-
-    @FunctionalInterface
-    public interface ExceptionalSupplier<T, E extends Throwable> {
-        T get() throws E;
     }
 }
