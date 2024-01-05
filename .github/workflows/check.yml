@@ -27,6 +27,7 @@ jobs:
         env:
           HMCL_GITHUB_TOKEN: ${{ secrets.HMCL_GITHUB_TOKEN }}
           HMCL_GITHUB_PROXY: ${{ secrets.HMCL_GITHUB_PROXY }}
+          HMCL_GITHUB_PROXYS: ${{ secrets.HMCL_GITHUB_PROXYS }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
