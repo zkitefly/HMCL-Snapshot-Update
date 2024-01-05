@@ -57,7 +57,9 @@ public final class Main {
             DOWNLOAD_LINKS.add(new URI(proxy + OFFICIAL_DOWNLOAD_LINK));
         }
 
-        removeFile(ARTIFACT_ROOT);
+        if (Files.exists(ARTIFACT_ROOT)) {
+            removeFile(ARTIFACT_ROOT);
+        }
         Files.createDirectory(ARTIFACT_ROOT);
 
         for (SourceBranch source : GITHUB_BRANCHES) {
