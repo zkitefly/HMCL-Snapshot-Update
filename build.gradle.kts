@@ -26,7 +26,7 @@ tasks.getByName("build") {
     dependsOn(tasks.getByName<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
         manifest {
             attributes(
-                    "Main-Class" to "net.burningtnt.hmclfetcherx.Main"
+                    "Main-Class" to "net.burningtnt.hmclfetcher.Main"
             )
         }
     })
