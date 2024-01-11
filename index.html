@@ -106,8 +106,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<a id="versionInfoExeDownloadBtn" href="$exeDownloadUrl" class="btn btn-outline-primary">下载 EXE 文件</a>
-				<a id="versionInfoJarDownloadBtn" href="$jarDownloadUrl" class="btn btn-outline-primary">下载 JAR 文件</a>
+				<a id="versionInfoDownloadBtn" href="$downloadUrl" class="btn btn-outline-primary">下载</a>
 				<a id="versionInfoChangeLogBtn" href="$githubUrl" class="btn btn-outline-primary">GitHub Commit</a>
 			</div>
 		</div>
@@ -133,13 +132,9 @@
 				document.getElementById("versionInfoVersion").textContent = versionInfo.version;
 				document.getElementById("versionInfoUniversal").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
-				// Use GitHub Page + CDN Proxy, Thanks to crashmc.com!
-				document.getElementById("versionInfoJarDownloadBtn").setAttribute("href", 
+				document.getElementById("versionInfoDownloadBtn").setAttribute("href", 
 					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v2/", 
-					"https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/"));.
-				document.getElementById("versionInfoExeDownloadBtn").setAttribute("href", 
-					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v2/", 
-					"https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/").replace(/\.jar(?=[^\/]*$)/, '.exe'));
+					"https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page + CDN Proxy, Thanks to crashmc.com!
 				document.getElementById("versionInfoChangeLogBtn").setAttribute("href", "https://github.com/HMCL-dev/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("versionInfo").classList.remove("d-none");
 			})
