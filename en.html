@@ -94,25 +94,25 @@
 			<span class="text-secondary">2 Getting version info...</span>
 		</div>
 
-		<div id="loadingErrorAlert" class="alert alert-danger" role="alert">
+		<div id="loadingErrorAlert" class="alert alert-danger d-none" role="alert">
 			1 Unable to get version information
 		</div>
 
-		<div id="loadingErrorAlert-" class="alert alert-danger" role="alert">
+		<div id="loadingErrorAlert-" class="alert alert-danger d-none" role="alert">
 			2 Unable to get version information
 		</div>
 
-		<div id="versionInfo" class="card">
+		<div id="versionInfo" class="card d-none">
 			<div class="card-header">
-				<h3><span class="badge badge-info">EXE</span></h3>
-			</div>
+				Featured
+			  </div>
 			<div class="card-body">
 				<table class="table table-sm table-hover table-borderless">
 					<tbody>
 						<tr>
 							<th scope="row">file name</th>
 							<td id="versionInfoFileName">$fileName</td>
-							<h3><span class="badge badge-info">EXE</span></h3>
+							<span class="badge badge-info">EXE</span>
 						</tr>
 						<tr>
 							<th scope="row">version number</th>
@@ -135,7 +135,7 @@
 
 		<div id="versionInfo-" class="card">
 			<div class="card-header">
-				<h3><span class="badge badge-info">JAR</span></h3>
+				<span class="badge badge-info">JAR</span>
 			</div>
 			<div class="card-body">
 				<table class="table table-sm table-hover table-borderless">
@@ -143,7 +143,7 @@
 						<tr>
 							<th scope="row">file name</th>
 							<td id="versionInfoFileName-">$fileName</td>
-							<h3><span class="badge badge-info">JAR</span></h3>
+							<span class="badge badge-info">JAR</span>
 						</tr>
 						<tr>
 							<th scope="row">version number</th>
