@@ -77,11 +77,19 @@
 		<h2>最新版本</h2>
 
 		<div id="loadingPlaceholder">
-			<span class="text-secondary">正在获取版本信息...</span>
+			<span class="text-secondary">1 正在获取版本信息...</span>
+		</div>
+
+		<div id="loadingPlaceholder-">
+			<span class="text-secondary">2 正在获取版本信息...</span>
 		</div>
 
 		<div id="loadingErrorAlert" class="alert alert-danger d-none" role="alert">
-			无法获取版本信息
+			1 无法获取版本信息
+		</div>
+
+		<div id="loadingErrorAlert-" class="alert alert-danger d-none" role="alert">
+			2 无法获取版本信息
 		</div>
 
 		<div id="versionInfo" class="card d-none">
@@ -112,6 +120,34 @@
 			</div>
 		</div>
 
+		<div id="versionInfo-" class="card d-none">
+			<div class="card-body">
+				<table class="table table-sm table-hover table-borderless">
+					<tbody>
+						<tr>
+							<th scope="row">文件名</th>
+							<td id="versionInfoFileName-">$fileName</td>
+						</tr>
+						<tr>
+							<th scope="row">版本号</th>
+							<td id="versionInfoVersion-">$version</td>
+						</tr>
+						<tr>
+							<th scope="row">HMCL 宣传页</th>
+							<td id="versionInfoUniversal-">$universal</td>
+						</tr>
+						<tr>
+							<th scope="row">SHA-1</th>
+							<td id="versionInfoSHA1-">$sha1</td>
+						</tr>
+					</tbody>
+				</table>
+				<a id="versionInfoDownloadBtn-" href="$downloadUrl" class="btn btn-outline-primary">下载</a>
+				<a id="versionInfoChangeLogBtn-" href="$githubUrl" class="btn btn-outline-primary">GitHub Commit</a>
+				<a id="prLinkBtn-" href="$githubUrl" class="btn btn-outline-primary">Collection of PR</a>
+			</div>
+		</div>
+
 	</main>
 
 	<footer class="footer mt-auto py-3">
@@ -123,7 +159,8 @@
 	</footer>
 
 	<script>
-		fetch("https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/generated/330f9bc7/54dea917.json", {
+		// exe
+		fetch("https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/generated/0ffbe60ac74fb7a5514e0bf7c4680e9210aeaa97/99130fa57c3f180bdc15a05a3cef6a0357de1a75.json", {
 			cache: "no-cache",
 			mode: "cors"
 		})
@@ -134,17 +171,40 @@
 				document.getElementById("versionInfoUniversal").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
 				document.getElementById("versionInfoDownloadBtn").setAttribute("href", 
-					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v2/", 
+					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v3/", 
 					"https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page + CDN Proxy, Thanks to crashmc.com!
 				document.getElementById("versionInfoChangeLogBtn").setAttribute("href", "https://github.com/burningtnt/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("prLinkBtn").setAttribute("href", "https://github.com/burningtnt/HMCL/commits/prs");
 				document.getElementById("versionInfo").classList.remove("d-none");
 			})
 			.catch(error => {
-				console.error("Failed to fetch version info: " + error);
+				console.error("1 Failed to fetch version info: " + error);
 				document.getElementById("loadingErrorAlert").classList.remove("d-none");
 			})
 			.then(() => document.getElementById("loadingPlaceholder").classList.add("d-none"));
+		// jar
+		fetch("https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/generated/0ffbe60ac74fb7a5514e0bf7c4680e9210aeaa97/5c7dfbcd00096ada0876a05c8d49d06784da9968.json", {
+			cache: "no-cache",
+			mode: "cors"
+		})
+			.then(response => response.json())
+			.then(versionInfo => {
+				document.getElementById("versionInfoFileName-").textContent = versionInfo.jar.split("/").pop();
+				document.getElementById("versionInfoVersion-").textContent = versionInfo.version;
+				document.getElementById("versionInfoUniversal-").textContent = versionInfo.universal;
+				document.getElementById("versionInfoSHA1-").textContent = versionInfo.jarsha1;
+				document.getElementById("versionInfoDownloadBtn-").setAttribute("href", 
+					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v3/", 
+					"https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page + CDN Proxy, Thanks to crashmc.com!
+				document.getElementById("versionInfoChangeLogBtn-").setAttribute("href", "https://github.com/burningtnt/HMCL/commit/" + versionInfo.version.split("-").pop());
+				document.getElementById("prLinkBtn-").setAttribute("href", "https://github.com/burningtnt/HMCL/commits/prs");
+				document.getElementById("versionInfo-").classList.remove("d-none");
+			})
+			.catch(error => {
+				console.error("2 Failed to fetch version info: " + error);
+				document.getElementById("loadingErrorAlert-").classList.remove("d-none");
+			})
+			.then(() => document.getElementById("loadingPlaceholder-").classList.add("d-none"));
 	</script>
 
 </body>

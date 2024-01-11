@@ -77,11 +77,19 @@
 		<h2>New version</h2>
 
 		<div id="loadingPlaceholder">
-			<span class="text-secondary">Getting version info...</span>
+			<span class="text-secondary">1 Getting version info...</span>
+		</div>
+
+		<div id="loadingPlaceholder-">
+			<span class="text-secondary">2 Getting version info...</span>
 		</div>
 
 		<div id="loadingErrorAlert" class="alert alert-danger d-none" role="alert">
-			Unable to get version information
+			1 Unable to get version information
+		</div>
+
+		<div id="loadingErrorAlert-" class="alert alert-danger d-none" role="alert">
+			2 Unable to get version information
 		</div>
 
 		<div id="versionInfo" class="card d-none">
@@ -111,6 +119,33 @@
 			</div>
 		</div>
 
+		<div id="versionInfo-" class="card d-none">
+			<div class="card-body">
+				<table class="table table-sm table-hover table-borderless">
+					<tbody>
+						<tr>
+							<th scope="row">file name</th>
+							<td id="versionInfoFileName-">$fileName</td>
+						</tr>
+						<tr>
+							<th scope="row">version number</th>
+							<td id="versionInfoVersion-">$version</td>
+						</tr>
+						<tr>
+							<th scope="row">HMCL publicity page</th>
+							<td id="versionInfoUniversal-">$universal</td>
+						</tr>
+						<tr>
+							<th scope="row">SHA-1</th>
+							<td id="versionInfoSHA1-">$sha1</td>
+						</tr>
+					</tbody>
+				</table>
+				<a id="versionInfoDownloadBtn-" href="$downloadUrl" class="btn btn-outline-primary">Download</a>
+				<a id="versionInfoChangeLogBtn-" href="$githubUrl" class="btn btn-outline-primary">GitHub Commit</a>
+			</div>
+		</div>
+
 	</main>
 
 	<footer class="footer mt-auto py-3">
@@ -122,7 +157,8 @@
 	</footer>
 
 	<script>
-		fetch("https://burningtnt.github.io/HMCL-Snapshot-Update/generated/bec56627/54dea917.json", {
+		// exe
+		fetch("https://burningtnt.github.io/HMCL-Snapshot-Update/generated/48900147dbd56d45d54d58720a256381f91f4675/bed2b49559f40d2e9281ad274a9cdc279cc5aa26.json", {
 			cache: "no-cache",
 			mode: "cors"
 		})
@@ -133,16 +169,38 @@
 				document.getElementById("versionInfoUniversal").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
 				document.getElementById("versionInfoDownloadBtn").setAttribute("href", 
-					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v2/", 
+					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v3/", 
 					"https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page.
 				document.getElementById("versionInfoChangeLogBtn").setAttribute("href", "https://github.com/HMCL-dev/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("versionInfo").classList.remove("d-none");
 			})
 			.catch(error => {
-				console.error("Failed to fetch version info: " + error);
+				console.error("1 Failed to fetch version info: " + error);
 				document.getElementById("loadingErrorAlert").classList.remove("d-none");
 			})
 			.then(() => document.getElementById("loadingPlaceholder").classList.add("d-none"));
+		// jar
+		fetch("https://burningtnt.github.io/HMCL-Snapshot-Update/generated/48900147dbd56d45d54d58720a256381f91f4675/98d4bfac1e35ce5b6261e1149451512f21909fd9.json", {
+			cache: "no-cache",
+			mode: "cors"
+		})
+			.then(response => response.json())
+			.then(versionInfo => {
+				document.getElementById("versionInfoFileName-").textContent = versionInfo.jar.split("/").pop();
+				document.getElementById("versionInfoVersion-").textContent = versionInfo.version;
+				document.getElementById("versionInfoUniversal-").textContent = versionInfo.universal;
+				document.getElementById("versionInfoSHA1-").textContent = versionInfo.jarsha1;
+				document.getElementById("versionInfoDownloadBtn-").setAttribute("href", 
+					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v3/", 
+					"https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page.
+				document.getElementById("versionInfoChangeLogBtn-").setAttribute("href", "https://github.com/HMCL-dev/HMCL/commit/" + versionInfo.version.split("-").pop());
+				document.getElementById("versionInfo-").classList.remove("d-none");
+			})
+			.catch(error => {
+				console.error("2 Failed to fetch version info: " + error);
+				document.getElementById("loadingErrorAlert-").classList.remove("d-none");
+			})
+			.then(() => document.getElementById("loadingPlaceholder-").classList.add("d-none"));
 	</script>
 
 </body>
