@@ -70,37 +70,33 @@ public final class Main {
             long runID = GITHUB_API.getLatestWorkflowID(source.owner, source.repository, source.workflow, source.branch);
             GitHubAPI.GitHubArtifact artifact = GITHUB_API.getArtifacts(source.owner, source.repository, runID)[0];
 
-            String exeName = null, exeHash = null;
+            String jarName = null, jarHash = null;
             try (ZipArchiveInputStream zis = new ZipArchiveInputStream(new BufferedInputStream(GITHUB_API.getArtifactData(artifact)))) {
                 ZipArchiveEntry entry;
                 while ((entry = zis.getNextZipEntry()) != null) {
                     String entryPath = entry.getName();
                     if (entryPath.endsWith(".jar")) {
-                        exeName = entry.getName().substring(entry.getName().lastIndexOf('/') + 1);
-                        try (OutputStream os = Files.newOutputStream(root.resolve(exeName))) {
+                        jarName = entry.getName().substring(entry.getName().lastIndexOf('/') + 1);
+                        try (OutputStream os = Files.newOutputStream(root.resolve(jarName))) {
                             zis.transferTo(os);
                         }
                     } else if (entryPath.endsWith(".jar.sha1")) {
-                        exeHash = new String(zis.readNBytes(40));
-                    } else if (entryPath.endsWith(".exe")) {
-                        try (OutputStream os = Files.newOutputStream(root.resolve(entry.getName().substring(entry.getName().lastIndexOf('/') + 1)))) {
-                            zis.transferTo(os);
-                        }
+                        jarHash = new String(zis.readNBytes(40));
                     }
                 }
             }
 
-            if (exeName == null || exeHash == null) {
+            if (jarName == null || jarHash == null) {
                 throw new IllegalStateException("Broken Artifact!");
             }
 
             JsonObject update = new JsonObject();
-            update.add("jarsha1", new JsonPrimitive(exeHash));
-            update.add("version", new JsonPrimitive(exeName.substring(5, exeName.length() - 4))); // Remove "HMCL-" prefix and ".exe" suffix.
+            update.add("jarsha1", new JsonPrimitive(jarHash));
+            update.add("version", new JsonPrimitive(jarName.substring(5, jarName.length() - 4))); // Remove "HMCL-" prefix and ".exe" suffix.
             update.add("universal", new JsonPrimitive("https://www.mcbbs.net/forum.php?mod=viewthread&tid=142335"));
 
             for (URI downloadLink : DOWNLOAD_LINKS) {
-                String fileLink = downloadLink.resolve(branch + "/" + exeName).toString();
+                String fileLink = downloadLink.resolve(branch + "/" + jarName).toString();
                 update.add("jar", new JsonPrimitive(fileLink));
 
                 try (BufferedWriter writer = Files.newBufferedWriter(root.resolve(String.format("%08x.json", downloadLink.hashCode())))) {
