@@ -70,18 +70,23 @@ public final class Main {
             long runID = GITHUB_API.getLatestWorkflowID(source.owner, source.repository, source.workflow, source.branch);
             GitHubAPI.GitHubArtifact artifact = GITHUB_API.getArtifacts(source.owner, source.repository, runID)[0];
 
-            String jarName = null, jarHash = null;
+            String jarName = null, jarHash = null, exeName = null;
             try (ZipArchiveInputStream zis = new ZipArchiveInputStream(new BufferedInputStream(GITHUB_API.getArtifactData(artifact)))) {
                 ZipArchiveEntry entry;
                 while ((entry = zis.getNextZipEntry()) != null) {
                     String entryPath = entry.getName();
-                    if (entryPath.endsWith(".exe")) {
+                    if (entryPath.endsWith(".jar")) {
                         jarName = entry.getName().substring(entry.getName().lastIndexOf('/') + 1);
                         try (OutputStream os = Files.newOutputStream(root.resolve(jarName))) {
                             zis.transferTo(os);
                         }
-                    } else if (entryPath.endsWith(".exe.sha1")) {
+                    } else if (entryPath.endsWith(".jar.sha1")) {
                         jarHash = new String(zis.readNBytes(40));
+                    } else if (entryPath.endsWith(".exe")) {
+                        exeName = entry.getName().substring(entry.getName().lastIndexOf('/') + 1);
+                        try (OutputStream os = Files.newOutputStream(root.resolve(exeName))) {
+                            zis.transferTo(os);
+                        }
                     }
                 }
             }
