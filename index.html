@@ -94,22 +94,25 @@
 			<span class="text-secondary">2 正在获取版本信息...</span>
 		</div>
 
-		<div id="loadingErrorAlert" class="alert alert-danger d-none" role="alert">
+		<div id="loadingErrorAlert" class="alert alert-danger" role="alert">
 			1 无法获取版本信息
 		</div>
 
-		<div id="loadingErrorAlert-" class="alert alert-danger d-none" role="alert">
+		<div id="loadingErrorAlert-" class="alert alert-danger" role="alert">
 			2 无法获取版本信息
 		</div>
 
-		<div id="versionInfo" class="card d-none">
+		<div id="versionInfo" class="card">
+			<div class="card-header">
+				<h3><span class="badge badge-info">EXE</span></h3>
+			</div>
 			<div class="card-body">
 				<table class="table table-sm table-hover table-borderless">
 					<tbody>
 						<tr>
 							<th scope="row">文件名</th>
 							<td id="versionInfoFileName">$fileName</td>
-							<span class="badge badge-info">EXE</span>
+							<h3><span class="badge badge-info">EXE</span></h3>
 						</tr>
 						<tr>
 							<th scope="row">版本号</th>
@@ -132,7 +135,7 @@
 
 		<div id="versionInfo-" class="card">
 			<div class="card-header">
-				<span class="badge badge-info">JAR</span>
+				<h3><span class="badge badge-info">JAR</span></h3>
 			</div>
 			<div class="card-body">
 				<table class="table table-sm table-hover table-borderless">
@@ -140,7 +143,7 @@
 						<tr>
 							<th scope="row">文件名</th>
 							<td id="versionInfoFileName-">$fileName</td>
-							<span class="badge badge-info">JAR</span>
+							<h3><span class="badge badge-info">JAR</span></h3>
 						</tr>
 						<tr>
 							<th scope="row">版本号</th>
