@@ -170,7 +170,7 @@
 
 	<script>
 		// exe
-		fetch("https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/generated/0ffbe60ac74fb7a5514e0bf7c4680e9210aeaa97/930a1e56062c761a9d46884436e0c3b8f1bc0d4f.exe.json", {
+		fetch("https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/generated/0ffbe60ac74fb7a5514e0bf7c4680e9210aeaa97/930a1e56062c761a9d46884436e0c3b8f1bc0d4f.exe.json", { // Use GitHub Page + CDN Proxy, thanks to crashmc.com!
 			cache: "no-cache",
 			mode: "cors"
 		})
@@ -182,7 +182,7 @@
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
 				document.getElementById("versionInfoDownloadBtn").setAttribute("href", 
 					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v3/", 
-					"https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page + CDN Proxy, Thanks to crashmc.com!
+					"https://alist.8mi.work/d/HMCL/")); // Thanks to @8MiYile!
 				document.getElementById("versionInfoChangeLogBtn").setAttribute("href", "https://github.com/burningtnt/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("prLinkBtn").setAttribute("href", "https://github.com/burningtnt/HMCL/commits/prs");
 				document.getElementById("versionInfo").classList.remove("d-none");
@@ -193,7 +193,7 @@
 			})
 			.then(() => document.getElementById("loadingPlaceholder").classList.add("d-none"));
 		// jar
-		fetch("https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/generated/0ffbe60ac74fb7a5514e0bf7c4680e9210aeaa97/930a1e56062c761a9d46884436e0c3b8f1bc0d4f.jar.json", {
+		fetch("https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/generated/0ffbe60ac74fb7a5514e0bf7c4680e9210aeaa97/930a1e56062c761a9d46884436e0c3b8f1bc0d4f.jar.json", { // Use GitHub Page + CDN Proxy, thanks to crashmc.com!
 			cache: "no-cache",
 			mode: "cors"
 		})
@@ -205,7 +205,7 @@
 				document.getElementById("versionInfoSHA1-").textContent = versionInfo.jarsha1;
 				document.getElementById("versionInfoDownloadBtn-").setAttribute("href", 
 					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v3/", 
-					"https://cdn.crashmc.com/https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page + CDN Proxy, Thanks to crashmc.com!
+					"https://alist.8mi.work/d/HMCL/")); // Thanks to @8MiYile!
 				document.getElementById("versionInfoChangeLogBtn-").setAttribute("href", "https://github.com/burningtnt/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("prLinkBtn-").setAttribute("href", "https://github.com/burningtnt/HMCL/commits/prs");
 				document.getElementById("versionInfo-").classList.remove("d-none");
