@@ -181,7 +181,7 @@
 				document.getElementById("versionInfoVersion").textContent = versionInfo.version;
 				document.getElementById("versionInfoUniversal").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
-				document.getElementById("versionInfoDownloadBtn").textContent = versionInfo.jar;
+				document.getElementById("versionInfoDownloadBtn").setAttribute("href", versionInfo.jar);
 				document.getElementById("versionInfoChangeLogBtn").setAttribute("href", "https://github.com/HMCL-dev/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("versionInfo").classList.remove("d-none");
 			})
@@ -202,6 +202,7 @@
 				document.getElementById("versionInfoUniversal-").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1-").textContent = versionInfo.jarsha1;
 				document.getElementById("versionInfoDownloadBtn-").textContent = versionInfo.jar;
+				document.getElementById("versionInfoDownloadBtn-").setAttribute("href", versionInfo.jar);
 				document.getElementById("versionInfoChangeLogBtn-").setAttribute("href", "https://github.com/HMCL-dev/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("versionInfo-").classList.remove("d-none");
 			})
