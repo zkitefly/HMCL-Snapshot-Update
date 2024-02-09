@@ -171,7 +171,7 @@
 
 	<script>
 		// exe
-		fetch("https://burningtnt.github.io/HMCL-Snapshot-Update/generated/48900147dbd56d45d54d58720a256381f91f4675/930a1e56062c761a9d46884436e0c3b8f1bc0d4f.exe.json", {
+		fetch("https://raw.githubusercontent.com/burningtnt/HMCL-Snapshot-Update/v4/artifacts/v4/b8e16c58e93651e8bad5cd7322143f4386f59aa6/f9a373cbf92e9726381a470cab99843b35709f04.exe.json", {
 			cache: "no-cache",
 			mode: "cors"
 		})
@@ -181,9 +181,7 @@
 				document.getElementById("versionInfoVersion").textContent = versionInfo.version;
 				document.getElementById("versionInfoUniversal").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1").textContent = versionInfo.jarsha1;
-				document.getElementById("versionInfoDownloadBtn").setAttribute("href", 
-					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v3/", 
-					"https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page.
+				document.getElementById("versionInfoDownloadBtn").textContent = versionInfo.jar;
 				document.getElementById("versionInfoChangeLogBtn").setAttribute("href", "https://github.com/HMCL-dev/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("versionInfo").classList.remove("d-none");
 			})
@@ -193,7 +191,7 @@
 			})
 			.then(() => document.getElementById("loadingPlaceholder").classList.add("d-none"));
 		// jar
-		fetch("https://burningtnt.github.io/HMCL-Snapshot-Update/generated/48900147dbd56d45d54d58720a256381f91f4675/930a1e56062c761a9d46884436e0c3b8f1bc0d4f.jar.json", {
+		fetch("https://raw.githubusercontent.com/burningtnt/HMCL-Snapshot-Update/v4/artifacts/v4/b8e16c58e93651e8bad5cd7322143f4386f59aa6/f9a373cbf92e9726381a470cab99843b35709f04.jar.json", {
 			cache: "no-cache",
 			mode: "cors"
 		})
@@ -203,9 +201,7 @@
 				document.getElementById("versionInfoVersion-").textContent = versionInfo.version;
 				document.getElementById("versionInfoUniversal-").textContent = versionInfo.universal;
 				document.getElementById("versionInfoSHA1-").textContent = versionInfo.jarsha1;
-				document.getElementById("versionInfoDownloadBtn-").setAttribute("href", 
-					versionInfo.jar.replace("https://github.com/burningtnt/HMCL-SNAPSHOT-UPDATE/raw/v3/", 
-					"https://burningtnt.github.io/HMCL-Snapshot-Update/")); // Use GitHub Page.
+				document.getElementById("versionInfoDownloadBtn-").textContent = versionInfo.jar;
 				document.getElementById("versionInfoChangeLogBtn-").setAttribute("href", "https://github.com/HMCL-dev/HMCL/commit/" + versionInfo.version.split("-").pop());
 				document.getElementById("versionInfo-").classList.remove("d-none");
 			})
