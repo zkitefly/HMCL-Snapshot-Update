@@ -99,6 +99,30 @@
             <a id="jar-commit" class="btn btn-outline-primary">GitHub Commit</a>
           </div>
         </div>
+        <div class="tab-pane fade" id="sh-pane" tabindex="0">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <span class="fw-semibold">Filename</span>
+              <span id="sh-name"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">Version</span>
+              <span id="sh-version"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">UNI</span>
+              <span id="sh-uni"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">SHA-1</span>
+              <span id="sh-sha1"></span>
+            </li>
+          </ul>
+          <div class="card-footer">
+            <a id="sh-url" class="btn btn-primary">Download</a>
+            <a id="sh-commit" class="btn btn-outline-primary">GitHub Commit</a>
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -107,12 +131,6 @@
       Powered by Bootstrap.
     </div>
   </footer>
-  <style>
-    .exe-status,
-    .jar-status {
-      display: none;
-    }
-  </style>
   <script src="../js/bootstrap.bundle.min.js"></script>
   <script>
     var cache = {};
