@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>获取 HMCL PR 构建版本</title>
+  <link rel="icon" href="./img/favicon.png" />
+  <link href="./css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body class="min-vh-100 d-flex flex-column">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+    <div class="container">
+      <span class="navbar-brand">HMCL PR 构建下载</span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <img src="https://hits.zkitefly.eu.org/?tag=https%3A%2F%2Fhmcl-snapshot-update.netlify.app" />
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="./en/prs.html">English</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/HMCL-dev/HMCL">HMCL 仓库</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/burningtnt/HMCL-Snapshot-Update">项目仓库</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="container flex-fill">
+    <div class="alert alert-info">普通用户建议下载 exe 文件。</div>
+    <div class="alert alert-warning">
+      <div>
+        使用浏览器下载文件时可能会被误报，若出现提示可<a data-bs-toggle="collapse" href="#detail">查看详情</a>。
+      </div>
+      <div class="collapse" id="detail">
+        <ol>
+          <li>更多操作（鼠标悬停后出现三个点）</li>
+          <li>保留</li>
+          <li>仍然保留</li>
+        </ol>
+        <img src="./img/img1.png" class="img-fluid">
+      </div>
+    </div>
+    <div id="alert"></div>
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#exe-pane" value="exe"
+              type="button">exe</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#jar-pane" value="jar"
+              type="button">jar</button>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="exe-pane" tabindex="0">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <span class="fw-semibold">文件名</span>
+              <span id="exe-name"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">版本号</span>
+              <span id="exe-version"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">宣传页</span>
+              <span id="exe-uni"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">SHA-1</span>
+              <span id="exe-sha1"></span>
+            </li>
+          </ul>
+          <div class="card-footer">
+            <a id="exe-url" class="btn btn-primary">下载</a>
+            <a id="exe-commit" class="btn btn-outline-primary">GitHub Commit</a>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="jar-pane" tabindex="0">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <span class="fw-semibold">文件名</span>
+              <span id="jar-name"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">版本号</span>
+              <span id="jar-version"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">宣传页</span>
+              <span id="jar-uni"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="fw-semibold">SHA-1</span>
+              <span id="jar-sha1"></span>
+            </li>
+          </ul>
+          <div class="card-footer">
+            <a id="jar-url" class="btn btn-primary">下载</a>
+            <a id="jar-commit" class="btn btn-outline-primary">GitHub Commit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-light border-top py-3 mt-4">
+    <div class="container text-center">
+      Powered by Bootstrap.
+    </div>
+  </footer>
+  <style>
+    .exe-status,
+    .jar-status {
+      display: none;
+    }
+  </style>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script>
+    var cache = {};
+    var alert = document.getElementById("alert");
+    function loadVersion(type, retry = 0) {
+      var url = "https://cp.zkitefly.eu.org/https://raw.githubusercontent.com/burningtnt/HMCL-Snapshot-Update/v5/artifacts/v5/uploaders/8mi.auto/burningtnt/HMCL/prs/gradle.yml." + type + ".json";
+      if (cache[type] && cache[type] > Date.now()) {
+        alert.className = "d-none";
+        return;
+      }
+      if (retry > 4) {
+        alert.textContent = "超过最大重试次数，请检查网络！";
+        alert.className = "alert alert-danger";
+        return;
+      };
+      alert.textContent = "远程数据正在加载中。";
+      alert.className = "alert alert-info";
+      fetch(url)
+        .then(res => res.json())
+        .then(info => {
+          document.getElementById(`${type}-name`).textContent = info.jar.split("/").pop();
+          document.getElementById(`${type}-version`).textContent = info.version;
+          document.getElementById(`${type}-uni`).textContent = info.universal;
+          document.getElementById(`${type}-sha1`).textContent = info.jarsha1;
+          document.getElementById(`${type}-url`).setAttribute("href", info.jar);
+          document.getElementById(`${type}-commit`).setAttribute(
+            "href",
+            "https://github.com/HMCL-dev/HMCL/commit/" + info.version.split("-").pop()
+          );
+          alert.textContent = "远程数据加载成功。";
+          alert.className = "alert alert-success";
+          cache[type] = Date.now() + 30000;
+        })
+        .catch(() => {
+          setTimeout(() => {
+            loadVersion(type, retry + 1);
+          }, 10000 + retry * 500);
+        });
+    }
+
+    const tabs = document.querySelectorAll('[data-bs-toggle="tab"]')
+    for (const tab of tabs) {
+      tab.addEventListener('shown.bs.tab', event => {
+        loadVersion(event.target.value)
+      });
+    }
+
+    loadVersion("exe");
+  </script>
+</body>
